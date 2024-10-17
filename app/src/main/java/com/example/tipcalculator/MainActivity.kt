@@ -78,41 +78,6 @@ fun MainScreen(content: @Composable () -> Unit = {}) {
 }
 
 @Composable
-fun TopHeader(totalPerPerson: Double) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(150.dp)
-            .clip(shape = CircleShape.copy(all = CornerSize(12.dp))),
-        color = Color(0xFFE9D7F7)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(12.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            val totalAmount = "%.2f".format(totalPerPerson)
-            Text(
-                text = "Total Per Person",
-                style = MaterialTheme.typography.bodyLarge,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "$ $totalAmount",
-                style = MaterialTheme.typography.bodyLarge,
-                fontSize = 35.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = Color.Black
-            )
-        }
-    }
-}
-
-@Composable
 fun BillForm() {
     var showResSection by remember { mutableStateOf(false) }
     var sliderPositionState by remember { mutableFloatStateOf(0.05f) }
@@ -187,7 +152,7 @@ fun BillForm() {
             showResSection = false
             totalBillAmount = 0.0
             totalTipAmount = 0.0
-            splitPeopleNumber = 1
+            splitPeopleNumber = 2
             totalAmount = 0.0
             totalPerPerson = 0.0
             totalBillState.value = ""
@@ -299,7 +264,6 @@ fun TotalTip(totalTipAmount: Double) {
     }
 }
 
-
 @Composable
 fun SplitButtons(
     splitPeopleNumber: Int,
@@ -361,6 +325,41 @@ fun EnterBillAmount(
         modifier = modifier,
     ) { inputValue ->
         inputValue.takeIf { validState }?.let { onValueChange(inputValue) }
+    }
+}
+
+@Composable
+fun TopHeader(totalPerPerson: Double) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(150.dp)
+            .clip(shape = CircleShape.copy(all = CornerSize(12.dp))),
+        color = Color(0xFFE9D7F7)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(12.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val totalAmount = "%.2f".format(totalPerPerson)
+            Text(
+                text = "Total Per Person",
+                style = MaterialTheme.typography.bodyLarge,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "$ $totalAmount",
+                style = MaterialTheme.typography.bodyLarge,
+                fontSize = 35.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.Black
+            )
+        }
     }
 }
 
